@@ -115,6 +115,7 @@ public class AStarVisualizer extends JPanel {
         /*Initialization:
         open is a priority queue (min-heap) that selects the most promising node to explore based on the lowest f() score (f = g + h).
         closed keeps track of visited nodes.
+        gScore maps node positions to the cost of the cheapest path from start.
         */
         PriorityQueue<Node> open = new PriorityQueue<>(Comparator.comparingInt(Node::f));
         Set<String> closed = new HashSet<>();
@@ -124,8 +125,13 @@ public class AStarVisualizer extends JPanel {
         open.add(startNode);
         gScore.put(key(start[0], start[1]), 0);
 
+        /*
+        Expands nodes using the four directions.
+        Skips walls and already-explored nodes.
+        Uses the Manhattan distance (via heuristic) as the estimate of how far it is to the goal.
+         */
         while (!open.isEmpty()) {
-            Node current = open.poll();
+            Node current = open.poll();   // Choose the node with lowest f()
 
             // Goal check
             if (current.row == goal[0] && current.col == goal[1]) {
@@ -147,6 +153,7 @@ public class AStarVisualizer extends JPanel {
 
                 int tentativeG = current.g + 1;
 
+                // Check and update cost
                 if (!gScore.containsKey(neighborKey) || tentativeG < gScore.get(neighborKey)) {
                     Node neighbor = new Node(newRow, newCol, tentativeG, heuristic(new int[]{newRow, newCol}, goal), current);
                     gScore.put(neighborKey, tentativeG);
