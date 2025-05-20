@@ -109,9 +109,13 @@ public class AStarVisualizer extends JPanel {
         g.fillRect(goal[1] * CELL_SIZE, goal[0] * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
 
-    // A* pathfinding algorithm
+    // A* pathfinding algorithm graph traversal algorithm
     static List<Node> aStar(int[][] grid, int[] start, int[] goal) {
         int rows = grid.length, cols = grid[0].length;
+        /*Initialization:
+        open is a priority queue (min-heap) that selects the most promising node to explore based on the lowest f() score (f = g + h).
+        closed keeps track of visited nodes.
+        */
         PriorityQueue<Node> open = new PriorityQueue<>(Comparator.comparingInt(Node::f));
         Set<String> closed = new HashSet<>();
         Map<String, Integer> gScore = new HashMap<>();
