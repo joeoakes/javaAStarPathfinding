@@ -175,7 +175,11 @@ public class AStarVisualizer extends JPanel {
         return row + "," + col;
     }
 
-    // Trace back the path from goal to start
+    /*
+    Trace back the path from goal to start
+    Once the goal is reached, it traces back
+    from the goal node to the start using the parent reference in each Node.
+     */
     static List<Node> reconstructPath(Node node) {
         List<Node> path = new ArrayList<>();
         while (node != null) {
