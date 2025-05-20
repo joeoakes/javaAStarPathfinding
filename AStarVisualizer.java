@@ -1,4 +1,9 @@
 /*
+A* (A-star) pathfinding is a best-first search algorithm that finds
+the shortest path from a start point to a goal point in a grid (or graph)
+while avoiding obstacles (walls). It’s widely used in game development,
+robotics, and AI due to its efficiency and optimality.
+
 JFrame and JPanel GUI
 0 = walkable cell (white)
 1 = wall (black)
